@@ -39,6 +39,9 @@ class Game:
         print("create new game...")
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
+        self.coins = pg.sprite.Group()
+        self.mobs = pg.sprite.Group()
+        self.power_ups = pg.sprite.Group()
         # 
         for row, tiles in enumerate(self.map_data):
             print(row)
@@ -49,6 +52,12 @@ class Game:
                     Wall(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
+                if tile == 'C':
+                    self.player = Coin(self, col, row)              
+                if tile == 'M':
+                    Mob(self, col, row)
+                if tile == 'U':               
+                    PowerUp(self, col, row)
 
     def run(self):
         # 
@@ -70,6 +79,14 @@ class Game:
               pg.draw.line(self.screen, LIGHTGREY, (x, 0), (x, HEIGHT))
          for y in range(0, HEIGHT, TILESIZE):
               pg.draw.line(self.screen, LIGHTGREY, (0, y), (WIDTH, y))
+    
+    def draw_text(self, surface, text, size, color, x, y):
+        font_name = pg.font.match_font('arial')
+        font = pg.font.Font(font_name, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.topleft = (x,y)
+        surface.blit(text_surface, text_rect)
 
     def draw(self):
             self.screen.fill(BGCOLOR)
