@@ -1,12 +1,12 @@
 # This file was created by: AJ Ordonio
-
+# added this comment to prove github is working
 # import libraries and modules
 import pygame as pg
 from settings import *
 from sprites import *
 from random import randint
 import sys
-from os import pygame
+from os import path
 
 # Define game clas
 class Game:
