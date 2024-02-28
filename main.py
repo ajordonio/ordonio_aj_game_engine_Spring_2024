@@ -6,8 +6,7 @@ from settings import *
 from sprites import *
 from random import randint
 import sys
-from os import path
-
+from os import pygame
 
 # Define game clas
 class Game:
