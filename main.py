@@ -1,6 +1,9 @@
 # This file was created by: AJ Ordonio
 # added this comment to prove github is working
 # import libraries and modules
+#
+'''add these features: health class, health power up, loot box'''
+
 import pygame as pg
 from settings import *
 from sprites import *
