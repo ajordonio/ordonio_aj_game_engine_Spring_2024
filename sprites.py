@@ -17,6 +17,7 @@ class Player(pg.sprite.Sprite):
         self.y = y * TILESIZE
         self.moneybag = 0
         self.speed = 300
+        self.health = 100
    
     def get_keys(self):
         self.vx, self.vy = 0, 0
@@ -63,15 +64,19 @@ class Player(pg.sprite.Sprite):
                     self.y = hits[0].rect.bottom
                 self.vy = 0
                 self.rect.y = self.y
-# defines when player collides with coins (kill)
+
     def collide_with_group(self, group, kill):
         hits = pg.sprite.spritecollide(self, group, kill)
         if hits:
             if str(hits[0].__class__.__name__) == "Coin":
                 self.moneybag += 1
+ 
             if str(hits[0].__class__.__name__) == "PowerUp":
-                print(hits[0].__class__.__name__)
-                self.speed += 25
+                print ("You just got Powered Up!")
+
+# defines when player collides with coins (kill)
+   
+            
 
  
     def update(self):

@@ -1,8 +1,8 @@
 # This file was created by: AJ Ordonio
 # added this comment to prove github is working
 # import libraries and modules
-#
-'''add these features: health class, health power up, loot box'''
+
+'''add these features: health class, Mob follows player, loot box'''
 
 import pygame as pg
 from settings import *
@@ -94,6 +94,7 @@ class Game:
             self.screen.fill(BGCOLOR)
             self.draw_grid()
             self.all_sprites.draw(self.screen)
+            self.draw_text(self.screen, "Lives " + str(self.player.health), 24, WHITE, 2, 3)
             pg.display.flip()
 
     def events(self):
