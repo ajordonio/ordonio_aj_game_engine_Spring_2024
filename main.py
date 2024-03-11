@@ -2,7 +2,7 @@
 # added this comment to prove github is working
 # import libraries and modules
 
-'''add these features: health class, Mob follows player, loot box'''
+'''add these features: health class, Mob follows player, loot box, music'''
 
 import pygame as pg
 from settings import *
@@ -60,6 +60,8 @@ class Game:
                     Mob(self, col, row)
                 if tile == 'U':               
                     PowerUp(self, col, row)
+                if tile == 'L':
+                    Chest(self, col, row)
 
     def run(self):
         # 
@@ -94,13 +96,12 @@ class Game:
             self.screen.fill(BGCOLOR)
             self.draw_grid()
             self.all_sprites.draw(self.screen)
-            self.draw_text(self.screen, "Lives " , 24, WHITE, 2, 3)
             pg.display.flip()
     
     def draw_text(self, surface, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
-        font = pg.font.Font(font_name, size)
-        text_surface = font.render(text, True, color)
+        font = pg.font.Font(font_name, 24)
+        text_surface = font.render(text, True, WHITE)
         text_rect = text_surface.get_rect()
         text_rect.topleft = (x,y)
         surface.blit(text_surface, text_rect)
@@ -142,7 +143,7 @@ class Game:
 # Instantiate the game... 
 g = Game()
 # use game method run to run
-g.show_start_screen()
+# g.show_start_screen()
 while True:
     g.new()
     g.run()
