@@ -24,14 +24,18 @@ class Game:
         self.clock = pg.time.Clock()
         self.load_data()
     def load_data(self):
-        game_folder = path.dirname(__file__)
-        self.map_data = []
+        self.game_folder = path.dirname(__file__)
+        self.img_folder = path.join(self.game_folder, 'images')
+        self.player_img = pg.image.load(path.join(self.img_folder, '')).convert_alpha
+      
+        
+       
         '''
         The with statement is a context manager in Python. 
         It is used to ensure that a resource is properly closed or released 
         after it is used. This can help to prevent errors and leaks.
         '''
-        with open(path.join(game_folder, 'map.txt'), 'rt') as f:
+        with open(path.join(self.game_folder, 'map.txt'), 'rt') as f:
             for line in f:
                 print(line)
                 self.map_data.append(line)
@@ -44,6 +48,8 @@ class Game:
         self.coins = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
         self.power_ups = pg.sprite.Group()
+        pg.mixer.music.load(path.join(self.snd_folder, ''))
+       
         # 
         for row, tiles in enumerate(self.map_data):
             print(row)
@@ -65,6 +71,7 @@ class Game:
 
     def run(self):
         # 
+        pg.mixer.music.play(loops=-1)
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(FPS) / 1000
