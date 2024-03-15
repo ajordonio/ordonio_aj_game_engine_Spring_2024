@@ -2,7 +2,7 @@
 # added this comment to prove github is working
 # import libraries and modules
 
-'''add these features: health class, Mob follows player, loot box, music'''
+'''add these features: player image, coin counter, loot box, music'''
 
 import pygame as pg
 from settings import *
@@ -25,8 +25,8 @@ class Game:
         self.load_data()
     def load_data(self):
         self.game_folder = path.dirname(__file__)
-        self.img_folder = path.join(self.game_folder, 'images')
-        self.player_img = pg.image.load(path.join(self.img_folder, '')).convert_alpha
+        self.map_data = []
+        
       
         
        
@@ -38,7 +38,7 @@ class Game:
         with open(path.join(self.game_folder, 'map.txt'), 'rt') as f:
             for line in f:
                 print(line)
-                self.map_data.append(line)
+                self.map_data.append(line) 
 
     
     def new(self):
@@ -48,7 +48,7 @@ class Game:
         self.coins = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
         self.power_ups = pg.sprite.Group()
-        pg.mixer.music.load(path.join(self.snd_folder, ''))
+        
        
         # 
         for row, tiles in enumerate(self.map_data):
@@ -68,10 +68,20 @@ class Game:
                     PowerUp(self, col, row)
                 if tile == 'L':
                     Chest(self, col, row)
+    
+        def draw(self):
+            self.screen.fill(BGCOLOR)
+            self.draw_grid()
+        self.all_sprites.draw(self.screen)
+        self.draw_text(self.screen, "Coins " + str(self.player.moneybag), 24, WHITE, WIDTH/2 - 32, 2)
+        pg.display.update()
+        def pov():
+            self.draw_text(self.screen, "Lives " + str(self.player.health), 24, WHITE, 2, 3)
+            pg.display.flip()
 
     def run(self):
         # 
-        pg.mixer.music.play(loops=-1)
+       
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(FPS) / 1000
