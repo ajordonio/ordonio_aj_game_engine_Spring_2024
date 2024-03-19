@@ -72,12 +72,11 @@ class Game:
         def draw(self):
             self.screen.fill(BGCOLOR)
             self.draw_grid()
-        self.all_sprites.draw(self.screen)
-        self.draw_text(self.screen, "Coins " + str(self.player.moneybag), 24, WHITE, WIDTH/2 - 32, 2)
-        pg.display.update()
-        def pov():
-            self.draw_text(self.screen, "Lives " + str(self.player.health), 24, WHITE, 2, 3)
+            self.all_sprites.draw(self.screen)
+            self.draw_text(self.screen, "Coins " + str(self.player1.moneybag), 24, WHITE, WIDTH/2 - 32, 2)
+            pg.display.update()
             pg.display.flip()
+        
 
     def run(self):
         # 
@@ -136,9 +135,9 @@ class Game:
             #         self.player.move(dy=-1)
             #     if event.key == pg.K_DOWN:
             #         self.player.move(dy=1)
-    def show_start(self):
+    def show_start_screen(self):
         self.screen.fill(BGCOLOR)
-        self.draw_text(self.screen, "This is the  start screen ", 24, WHITE, 2, 3)
+        self.draw_text(self.screen, "Press any key to play", 24, WHITE, 2, 3)
         pg.display.flip()
         self.wait_for_key()  
 
@@ -160,7 +159,7 @@ class Game:
 # Instantiate the game... 
 g = Game()
 # use game method run to run
-# g.show_start_screen()
+g.show_start_screen()
 while True:
     g.new()
     g.run()
