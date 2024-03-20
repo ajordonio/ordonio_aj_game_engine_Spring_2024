@@ -74,7 +74,7 @@ class Player(pg.sprite.Sprite):
  
             if str(hits[0].__class__.__name__) == "PowerUp":
                 print ("You just got Powered Up!")
-                self.speed += 50
+                self.speed += 150
 
             # if str(hits[0]._class_._name_) == 'Mob':
             #     print ("you got hit")

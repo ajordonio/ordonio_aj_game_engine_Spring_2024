@@ -2,7 +2,7 @@
 # added this comment to prove github is working
 # import libraries and modules
 
-'''add these features: player image, coin counter, loot box, music'''
+'''add these features: Start screen, coin counter, loot box, music'''
 
 import pygame as pg
 from settings import *
@@ -11,12 +11,13 @@ from random import randint
 import sys
 from os import path
 
-# Define game clas
+# Define game class
 class Game:
     # define init self 
     def __init__(self):
         # initilize py game
         pg.init()
+        pg.mixer.init()
         #
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption(TITLE)
@@ -25,6 +26,7 @@ class Game:
         self.load_data()
     def load_data(self):
         self.game_folder = path.dirname(__file__)
+        self.snd_folder = path.join(self.game_folder, 'sounds')
         self.map_data = []
         
       
@@ -42,6 +44,7 @@ class Game:
 
     
     def new(self):
+        pg.mixer.music.load(path.join(self.snd_folder, 'gamesoundtrack1.mp3'))
         print("create new game...")
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
@@ -69,18 +72,17 @@ class Game:
                 if tile == 'L':
                     Chest(self, col, row)
     
-        def draw(self):
-            self.screen.fill(BGCOLOR)
-            self.draw_grid()
-            self.all_sprites.draw(self.screen)
-            self.draw_text(self.screen, "Coins " + str(self.player1.moneybag), 24, WHITE, WIDTH/2 - 32, 2)
-            pg.display.update()
-            pg.display.flip()
+        
+           
+            
+    
+         # Update the display
+           
         
 
     def run(self):
         # 
-       
+        pg.mixer.music.play(loops=-1)
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(FPS) / 1000
@@ -112,15 +114,11 @@ class Game:
             self.screen.fill(BGCOLOR)
             self.draw_grid()
             self.all_sprites.draw(self.screen)
+            
             pg.display.flip()
     
-    def draw_text(self, surface, text, size, color, x, y):
-        font_name = pg.font.match_font('arial')
-        font = pg.font.Font(font_name, 24)
-        text_surface = font.render(text, True, WHITE)
-        text_rect = text_surface.get_rect()
-        text_rect.topleft = (x,y)
-        surface.blit(text_surface, text_rect)
+   
+        
 
     def events(self):
          for event in pg.event.get():
