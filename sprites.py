@@ -74,18 +74,22 @@ class Player(pg.sprite.Sprite):
  
             if str(hits[0].__class__.__name__) == "PowerUp":
                 print ("You just got Powered Up!")
-                self.speed += 150
+                self.speed += 200
 
+            if str(hits[0].__class__.__name__) == "Chest":
+                self.moneybag += 5
+           
+        
+        
             # if str(hits[0]._class_._name_) == 'Mob':
-            #     print ("you got hit")
-            #     self.speed -= 50
+                
+               
+                
 
 
 # defines when player collides with coins (kill)
    
             
-
- 
     def update(self):
         self.get_keys()
         self.x += self.vx * self.game.dt

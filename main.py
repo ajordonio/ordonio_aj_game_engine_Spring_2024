@@ -114,7 +114,7 @@ class Game:
             self.screen.fill(BGCOLOR)
             self.draw_grid()
             self.all_sprites.draw(self.screen)
-            
+            self.draw_text(self.screen, "Coins " + str(self.player.moneybag), 24, WHITE, WIDTH/2 - 32, 2)
             pg.display.flip()
     
    
@@ -138,6 +138,12 @@ class Game:
         self.draw_text(self.screen, "Press any key to play", 24, WHITE, 2, 3)
         pg.display.flip()
         self.wait_for_key()  
+
+    def show_end_screen(self):
+        self.screen.fill(BGCOLOR)
+        self.draw_text(self.screen, "YOU DIED, Press any key to play again", 24, WHITE, 2, 3)
+        pg.display.flip()
+        self.wait_for_key()
 
     def wait_for_key(self):
         waiting = True
