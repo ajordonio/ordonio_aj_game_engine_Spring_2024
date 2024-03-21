@@ -45,6 +45,8 @@ class Game:
     
     def new(self):
         pg.mixer.music.load(path.join(self.snd_folder, 'gamesoundtrack1.mp3'))
+        self.collect_sound = pg.mixer.Sound(path.join(self.snd_folder, 'coinsound.mp3'))
+        self.powerup_sound = pg.mixer.Sound(path.join(self.snd_folder, 'powerupsound.mp3'))
         print("create new game...")
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
@@ -82,6 +84,7 @@ class Game:
 
     def run(self):
         # 
+        pg.mixer.music.set_volume(0.25)
         pg.mixer.music.play(loops=-1)
         self.playing = True
         while self.playing:

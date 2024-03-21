@@ -71,9 +71,12 @@ class Player(pg.sprite.Sprite):
         if hits:
             if str(hits[0].__class__.__name__) == "Coin":
                 self.moneybag += 1
+                self.game.collect_sound.play()
  
             if str(hits[0].__class__.__name__) == "PowerUp":
                 print ("You just got Powered Up!")
+                self.game.powerup_sound.play()
+                
                 self.speed += 200
 
             if str(hits[0].__class__.__name__) == "Chest":
