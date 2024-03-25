@@ -5,7 +5,7 @@ FPS = 30
 TITLE = "My Fun Game"
 
 TILESIZE = 32
-
+#RGB COLORS
 BGCOLOR = (0,0,0)
 GREEN = (0,255,0) 
 BLUE = (0,0,255)
@@ -18,3 +18,5 @@ BLACK = (000,000,000)
 
 # player settings
 PLAYER_SPEED = 300
+PLAYER_START_X = 13
+PLAYER_START_Y = 11
