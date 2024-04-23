@@ -1,15 +1,18 @@
 # This file was created by: AJ Ordonio
 # added this comment to prove github is working
 # import libraries and modules
-
 '''add these features: Start screen, coin counter, loot box, music'''
-
+'''Beta: New Map'''
+'''release version: '''
 import pygame as pg
 from settings import *
 from sprites import *
 from random import randint
 import sys
 from os import path
+
+LEVEL1 = "level1.txt"
+LEVEL2 = "level2.txt"
 
 class Game:
     # Initialize game
@@ -30,7 +33,7 @@ class Game:
 
         self.game_over = False
         self.game_win = False
-       
+
 
     # Load game data
     def load_data(self):
@@ -40,9 +43,43 @@ class Game:
         self.map_data = []
 
         # Read map data from file
-        with open(path.join(self.game_folder, 'map.txt'), 'rt') as f:
+        
+
+        with open(path.join(self.game_folder, LEVEL1), 'rt') as f:
             for line in f:
-                self.map_data.append(line.strip()) 
+                print(line)
+                self.map_data.append(line)
+                
+        # Parse map data and create game objects
+    def change_level(self, lvl):
+        self.currLvl = lvl 
+        # kill all existing sprites first to save memory
+        for s in self.all_sprites:
+            s.kill()
+        # reset criteria for changing level
+        self.moneybag = 0
+        # reset map data list to empty
+        self.map_data = []
+        # open next level
+        with open(path.join(self.game_folder, ), 'rt') as f:
+            for line in f:
+                print(line)
+                self.map_data.append(line)
+        # repopulate the level with stuff
+        for row, tiles in enumerate(self.map_data):
+            for col, tile in enumerate(tiles):
+                if tile == '1':
+                    Wall(self, col, row)
+                if tile == 'P':
+                    self.player = Player(self, col, row)
+                if tile == 'C':
+                    Coin(self, col, row)
+                if tile == 'M':
+                    Mob(self, col, row)
+                if tile == 'U':
+                    PowerUp(self, col, row)
+                if tile == 'L':
+                    Chest(self, col, row)
 
     # Create new game
     def new(self):
@@ -59,41 +96,21 @@ class Game:
         self.power_ups = pg.sprite.Group()
 
          # Define the range of coordinates
-        
 
-        # Parse map data and create game objects
-        for row, tiles in enumerate(self.map_data):
-            for col, tile in enumerate(tiles):
-                if tile == '1':
-                    Wall(self, col, row)
-                if tile == 'P':
-                    self.player = Player(self, col, row)
-                if tile == 'C':
-                    Coin(self, col, row)
-                if tile == 'M':
-                    Mob(self, col, row)
-                if tile == 'U':
-                    PowerUp(self, col, row)
-                if tile == 'L':
-                    Chest(self, col, row)
+        
 
     # Run the game
     def run(self):
-        # Set background music volume and play
-        pg.mixer.music.set_volume(0.1)
+        # start playing sound on infinite loop (loops=-1)
         pg.mixer.music.play(loops=-1)
         self.playing = True
         while self.playing:
-            # Limit the frame rate
             self.dt = self.clock.tick(FPS) / 1000
-            # Handle events
             self.events()
-            # Update game state
             self.update()
-            # Draw game elements
             self.draw()
-        
-         # Check if the game is over
+             # Check if the game is over
+             
             if self.game_over:
                 self.playing = False
                 self.show_end_screen()
@@ -103,16 +120,22 @@ class Game:
             if self.game_over:
                 self.playing = False 
                 self.show_end_screen()
-         
-        
-        
-            
+
+         # Check if the game is over
+    
+
+
+
+
 
     # Quit the game
     def quit(self):
         pg.quit()
         sys.exit()
 
+    
+
+    # Update game state
     # Update game state
     def update(self):
         self.all_sprites.update()
@@ -128,8 +151,9 @@ class Game:
             # Exit the game loop
             self.playing = False
             self.moneybag = 0
-            
         
+
+
 
     # Draw the grid
     def draw_grid(self):
@@ -153,10 +177,10 @@ class Game:
         self.draw_grid()
         self.all_sprites.draw(self.screen)
         self.draw_text(self.screen, "Coins" + str(self.player.moneybag), 24, WHITE, WIDTH // 2 - 32, 2)
-        
+
         #coin counter using moneybag
        
-        
+
         pg.display.flip()
 
     # Handle game events

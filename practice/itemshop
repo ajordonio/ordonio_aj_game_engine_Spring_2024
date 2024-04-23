@@ -1,0 +1,114 @@
+# import pygame
+# import sys
+
+# # Initialize Pygame
+# pygame.init()
+
+# # Set up the screen
+# WIDTH, HEIGHT = 800, 600
+# screen = pygame.display.set_mode((WIDTH, HEIGHT))
+# pygame.display.set_caption("Item Shop")
+
+# # Colors
+# WHITE = (255, 255, 255)
+# BLACK = (0, 0, 0)
+# GRAY = (200, 200, 200)
+
+# # Fonts
+# font = pygame.font.SysFont(None, 32)
+
+# # Items
+# items = {
+#     "Health Potion": {"price": 20, "quantity": 10},
+#     "Mana Potion": {"price": 30, "quantity": 8},
+#     "Sword": {"price": 100, "quantity": 5},
+#     "Armor": {"price": 150, "quantity": 3}
+# }
+
+# # Player's inventory
+# inventory = {
+#     "Health Potion": 0,
+#     "Mana Potion": 0,
+#     "Sword": 0,
+#     "Armor": 0
+# }
+
+# # Player's money balance
+# money = 200
+
+# def draw_text(text, font, color, x, y):
+#     text_surface = font.render(text, True, color)
+#     text_rect = text_surface.get_rect()
+#     text_rect.topleft = (x, y)
+#     screen.blit(text_surface, text_rect)
+
+# def draw_shop():
+#     screen.fill(WHITE)
+#     draw_text("Item Shop", font, BLACK, 20, 20)
+#     draw_text(f"Money: ${money}", font, BLACK, WIDTH // 2, 20)
+#     y = 60
+#     for item, data in items.items():
+#         draw_text(f"{item}: ${data['price']} - Stock: {data['quantity']}", font, BLACK, 20, y)
+#         y += 40
+
+# def draw_inventory():
+#     y = 60
+#     for item, quantity in inventory.items():
+#         draw_text(f"{item}: {quantity}", font, BLACK, WIDTH // 2, y)
+#         y += 40
+
+# def buy_item(item):
+#     global money
+#     if items[item]["quantity"] > 0 and money >= items[item]["price"]:
+#         items[item]["quantity"] -= 1
+#         inventory[item] += 1
+#         money -= items[item]["price"]
+
+# def sell_item(item):
+#     global money
+#     if inventory[item] > 0:
+#         items[item]["quantity"] += 1
+#         inventory[item] -= 1
+#         money += items[item]["price"]
+
+# # Main loop
+# running = True
+# while running:
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             running = False
+#         elif event.type == pygame.MOUSEBUTTONDOWN:
+#             if event.button == 1:  # Left mouse button
+#                 mx, my = pygame.mouse.get_pos()
+#                 if mx < WIDTH // 2:
+#                     # Clicked on the shop side
+#                     selected_item = (my - 60) // 40
+#                     if selected_item < len(items):
+#                         item = list(items.keys())[selected_item]
+#                         buy_item(item)
+#                 else:
+#                     # Clicked on the inventory side
+#                     selected_item = (my - 60) // 40
+#                     if selected_item < len(inventory):
+#                         item = list(inventory.keys())[selected_item]
+#                         sell_item(item)
+
+#     draw_shop()
+#     draw_inventory()
+
+#     pygame.display.flip()
+
+# pygame.quit()
+# sys.exit()
+
+
+def show_item_shop(self):
+        self.screen.fill(WHITE)
+        self.draw_text("Item Shop", 'Arial' BLACK, WIDTH // 2 - 50, 20)
+        self.draw_text("Money: $" + str(self.moneybag), 'Arial', BLACK, 20, 60)
+
+        self.draw_text("Total Money: $" + str(money), font, BLACK, WIDTH // 2 - 100, HEIGHT - 40)
+
+g= 
+
+g.show_item_shop()
