@@ -15,22 +15,16 @@ LEVEL1 = "level1.txt"
 LEVEL2 = "level2.txt"
 
 class Game:
-    # Initialize game
+    # Define a special method to init the properties of said class...
     def __init__(self):
-        # Initialize pygame and mixer
+        # init pygame
         pg.init()
-        pg.mixer.init()
-
-        # Set up the display
+        # set size of screen and be the screen
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption(TITLE)
-
-        # Set up the clock
+        # setting game clock 
         self.clock = pg.time.Clock()
-
-        # Load game data
         self.load_data()
-
         self.game_over = False
         self.game_win = False
 
@@ -61,7 +55,7 @@ class Game:
         # reset map data list to empty
         self.map_data = []
         # open next level
-        with open(path.join(self.game_folder, ), 'rt') as f:
+        with open(path.join(self.game_folder, lvl ), 'rt') as f:
             for line in f:
                 print(line)
                 self.map_data.append(line)
@@ -98,7 +92,20 @@ class Game:
          # Define the range of coordinates
 
         
-
+        for row, tiles in enumerate(self.map_data):
+            for col, tile in enumerate(tiles):
+                if tile == '1':
+                    Wall(self, col, row)
+                if tile == 'P':
+                    self.player = Player(self, col, row)
+                if tile == 'C':
+                    Coin(self, col, row)
+                if tile == 'M':
+                    Mob(self, col, row)
+                if tile == 'U':
+                    PowerUp(self, col, row)
+                if tile == 'L':
+                    Chest(self, col, row)
     # Run the game
     def run(self):
         # start playing sound on infinite loop (loops=-1)
@@ -146,10 +153,10 @@ class Game:
             self.game_over = True  
             self.moneybag = 0
 
-        if self.player.moneybag >= 6:
-            self.game_win = True
+        if self.player.moneybag > 6:
+            self.change_level(LEVEL2)
             # Exit the game loop
-            self.playing = False
+        
             self.moneybag = 0
         
 
