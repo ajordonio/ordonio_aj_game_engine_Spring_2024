@@ -67,7 +67,7 @@ class Player(pg.sprite.Sprite):
                 self.game.collect_sound.play()
             elif isinstance(hit, PowerUp):
                 self.game.powerup_sound.play()
-                self.speed += 200
+                self.speed += 100
             elif isinstance(hit, Chest):
                 self.moneybag += 5
                 self.speed += 100

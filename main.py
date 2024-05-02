@@ -27,7 +27,17 @@ class Game:
         self.load_data()
         self.game_over = False
         self.game_win = False
+    
+    #     self.shop_items = {
+    #     "Armor (B)": 5,
+    #     "Potion (N)": 3
+    # }
 
+        def show_item_shop(self):
+            self.paused = True
+            self.screen.fill(BGCOLOR)
+            self.draw_text("Item Shop", 24, WHITE, WIDTH // 2, 20)
+            self.draw_text("Press p to return to game", 24, WHITE, WIDTH // 2, 20)
 
     # Load game data
     def load_data(self):
@@ -151,6 +161,7 @@ class Game:
         hits = pg.sprite.spritecollide(self.player, self.mobs, False)
         if hits:
             self.game_over = True  
+            self.change_level(LEVEL1)
             self.moneybag = 0
 
         if self.player.moneybag > 6:
@@ -211,7 +222,8 @@ class Game:
         pg.display.flip()
         self.wait_for_key()
             # Add a delay to keep the end screen visible
-        pg.time.delay(3000)  # Delay for 3000 milliseconds (3 seconds)
+        
+
 
         # Reset the game state
         self.game_over = False
@@ -265,5 +277,7 @@ while True:
     if g.game_over:
         # Show the end screen
         g.show_start_screen()
+    
     if g.game_win:
         g.show_start_screen()
+        
