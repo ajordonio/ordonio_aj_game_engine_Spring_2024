@@ -4,12 +4,15 @@
 '''add these features: Start screen, coin counter, loot box, music'''
 '''Beta: New Map'''
 '''release version: '''
+
+# Credits: ChatGPT
 import pygame as pg
 from settings import *
 from sprites import *
 from random import randint
 import sys
 from os import path
+
 
 LEVEL1 = "level1.txt"
 LEVEL2 = "level2.txt"
@@ -28,18 +31,27 @@ class Game:
         self.game_over = False
         self.game_win = False
     
-    #     self.shop_items = {
-    #     "Armor (B)": 5,
-    #     "Potion (N)": 3
-    # }
+        self.shop_items = {
+        "Armor (B)": 5,
+        "Potion (N)": 3
+    }
 
-        def show_item_shop(self):
-            self.paused = True
-            self.screen.fill(BGCOLOR)
-            self.draw_text("Item Shop", 24, WHITE, WIDTH // 2, 20)
-            self.draw_text("Press p to return to game", 24, WHITE, WIDTH // 2, 20)
+    def show_item_shop(self):
+        self.screen.fill(BGCOLOR)
+        self.draw_text(self.screen, "Item Shop", 64, WHITE, 4, 5)
+        self.draw_text(self.screen, "Press p to return to game", 24, WHITE, WIDTH // 2, 20)
 
-    # Load game data
+      # Check if the game should unpause after the delay
+        if self.unpause_after_delay:
+                # Check if the delay has passed
+                current_time = pg.time.get_ticks()
+                if current_time - self.item_shop_closed_time >= self.delay_duration:
+                    self.paused = False
+                    # Reset flags
+                    self.unpause_after_delay = False
+                    self.item_shop_closed_time = 0
+
+    # Load game datas
     def load_data(self):
         # Define game folder and sound folder paths
         self.game_folder = path.dirname(__file__)
@@ -204,9 +216,18 @@ class Game:
     # Handle game events
     def events(self):
         for event in pg.event.get():
+            if event.type == pg.KEYUP:
+                if event.key == pg.K_i:
+                   self.show_item_shop()
+
             if event.type == pg.QUIT:
                 self.quit()
+        
 
+    
+            
+
+          
     # Display the start screen
     def show_start_screen(self):
         self.screen.fill(BGCOLOR)
