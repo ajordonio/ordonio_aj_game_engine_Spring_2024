@@ -30,26 +30,31 @@ class Game:
         self.load_data()
         self.game_over = False
         self.game_win = False
+        self.paused = False
     
         self.shop_items = {
         "Armor (B)": 5,
-        "Potion (N)": 3
+        "Potion (N)": 3,
     }
 
     def show_item_shop(self):
-        self.screen.fill(BGCOLOR)
-        self.draw_text(self.screen, "Item Shop", 64, WHITE, 4, 5)
-        self.draw_text(self.screen, "Press p to return to game", 24, WHITE, WIDTH // 2, 20)
+        self.paused = True  # Set the paused flag to True when item shop opens
 
+        # Clear the screen and draw item shop interface
+        self.screen.fill(BGCOLOR)
+        self.draw_text(self.screen, "Item Shop", 64, WHITE, WIDTH // 2, HEIGHT // 4)
+        self.draw_text(self.screen, "Press P to return to game", 24, WHITE, WIDTH // 2, HEIGHT // 2)
+        pg.display.flip()
+
+        # Wait for the player to return to the game
+        #from chat gpt
+        while self.paused:
+            for event in pg.event.get():
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_p:
+                        self.paused = False  # Unpause the game when 'P' is pressed
       # Check if the game should unpause after the delay
-        if self.unpause_after_delay:
-                # Check if the delay has passed
-                current_time = pg.time.get_ticks()
-                if current_time - self.item_shop_closed_time >= self.delay_duration:
-                    self.paused = False
-                    # Reset flags
-                    self.unpause_after_delay = False
-                    self.item_shop_closed_time = 0
+    
 
     # Load game datas
     def load_data(self):
@@ -178,8 +183,8 @@ class Game:
 
         if self.player.moneybag > 6:
             self.change_level(LEVEL2)
-            # Exit the game loop
-        
+            
+
             self.moneybag = 0
         
 
@@ -219,6 +224,7 @@ class Game:
             if event.type == pg.KEYUP:
                 if event.key == pg.K_i:
                    self.show_item_shop()
+                   
 
             if event.type == pg.QUIT:
                 self.quit()
